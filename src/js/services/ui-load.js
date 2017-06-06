@@ -90,4 +90,26 @@ angular.module('ui.load', [])
 
 			return deferred.promise;
 		};
-}]);
+	}])
+  .directive("getfile", [function () {
+      return {
+          scope: {
+              fileread: "=",
+              getfilename: "=",
+              extension: "="
+          },
+          link: function (scope, element, attributes) {
+              element.bind("change", function (changeEvent) {
+                  var reader = new FileReader();
+                  reader.onload = function (loadEvent) {
+                      scope.$apply(function () {
+                          scope.fileread = loadEvent.target.result;
+                          scope.getfilename = (changeEvent.target.files[0]).name;
+                          scope.extension = (changeEvent.target.files[0]).name.split('.').pop().toLowerCase();
+                      });
+                  }
+                  reader.readAsDataURL(changeEvent.target.files[0]);
+              });
+          }
+      }
+  }])

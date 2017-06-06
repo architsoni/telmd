@@ -55,8 +55,13 @@ angular.module('ui.api', [])
 	        //  firebase.auth().sendEmailVerification()
 	    }
 
+	    api.saveImage = function (value) {
+	        var storageRef = firebase.storage().ref();
+	        var imagesRef = storageRef.child('images/');
+	        return imagesRef.putString(value.fileData, 'data_url');
+	    }
+
 	    api.setRef = function (key, value) {
-	        // console.log(key, value);
 	        var userRef = firebase.database().ref('Users/' + key);
 	        userRef.child('detail').set(value);
 	    }

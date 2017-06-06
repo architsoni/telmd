@@ -10,9 +10,16 @@ app.controller('SignupFormController', ['$scope', '$http', '$state', 'api', 'toa
         api.signUp($scope.user)
             .then(function (response) {
                 $scope.$apply(toaster.pop('success', "Success", "Sign up successfully"));
-                var refData = { email: $scope.user.email, name: $scope.user.name, age: $scope.user.age, phoneNumber: $scope.user.phoneNumber, zipCode: $scope.user.zipCode };
-                api.setRef(response.uid, refData);
-                $state.go('app.dashboard-v2');
+
+                api.saveImage($scope.user).then(function (imgData) {
+                    console.log(imgData.metadata.downloadURLs[0], "snappp")
+                    if (imgData) {
+                        var refData = { email: $scope.user.email, name: $scope.user.name, age: $scope.user.age, phoneNumber: $scope.user.phoneNumber, zipCode: $scope.user.zipCode, imageUrl: imgData.metadata.downloadURLs[0] };
+                        api.setRef(response.uid, refData);
+                        $state.go('app.dashboard-v2');
+                    }
+                });
+
             })
             .catch(function (error) {
                 // Handle Errors here.

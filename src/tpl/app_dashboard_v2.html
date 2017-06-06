@@ -42,7 +42,6 @@
                 </div>
             </div>
         </div>
-
         <div class="wrapper-md">
             <div class="row text-center">
                 <div class="col-lg-2-4" ng-if="view.userCheckInDetail.body">
@@ -133,11 +132,12 @@
                             <span class="text-success h3">{{view.userCheckInDetail.energy}}</span>
                         </div>
                     </div>
-                   <p>{{view.userCheckInDetail.energyQuestion}}</p> 
+                    <p>{{view.userCheckInDetail.energyQuestion}}</p>
                 </div>
             </div>
         </div>
         <div class="wrapper-md">
+            
             <!-- users -->
             <div class="row">
                 <div class="col-md-12">
@@ -297,11 +297,35 @@
                     <button class="btn btn-default btn-xs" ng-click="clearCompletedTodos()" ng-show="remainingCount < todos.length">Clear completed </button>
                     n>
                     <!-- <strong>{{remainingCount}}</strong> -->
-                    <
-                    <ng-pluralize count="remainingCount" when="{ one: 'item left', other: 'items left' }"></ng-pluralize>
+                    < <ng-pluralize count="remainingCount" when="{ one: 'item left', other: 'items left' }"></ng-pluralize>
                 </div>
             </div>
         </div>
+
+        <div class="row typeform">
+                <div class="col-md-12">
+                    <div class="typeform-widget" data-url="https://brc1.typeform.com/to/oajXBJ" data-transparency="50" style="width: 100%; height: 472px;"> </div>
+                    <script>
+                    (function() {
+                        var qs, js, q, s, d = document,
+                            gi = d.getElementById,
+                            ce = d.createElement,
+                            gt = d.getElementsByTagName,
+                            id = "typef_orm",
+                            b = "https://embed.typeform.com/";
+                        if (!gi.call(d, id)) {
+                            js = ce.call(d, "script");
+                            js.id = id;
+                            js.src = b + "embed.js";
+                            q = gt.call(d, "script")[0];
+                            q.parentNode.insertBefore(js, q)
+                        }
+                    })()
+                    </script>
+                    <div>
+                    </div>
+                </div>
+            </div>
     </div>
     <!-- / main -->
     <!-- right col -->
