@@ -1,0 +1,540 @@
+<div class="hbox hbox-auto-xs hbox-auto-sm" ng-init="
+    app.settings.asideFolded = false; 
+    app.settings.asideDock = false;
+  ">
+  <!-- main -->
+  <div class="col">
+    <!-- main header -->
+    <div class="bg-light lter b-b wrapper-md">
+      <div class="row">
+        <div class="col-sm-6 col-xs-12">
+          <h1 class="m-n font-thin h3 text-black">Welcome to TelMD</h1>
+          <small class="text-muted">Making Wellness Contagious</small>
+        </div>
+        <div class="col-sm-6 text-right hidden-xs">
+          <div class="inline m-r text-left">
+          </div>
+          <div class="inline text-left">
+          <a href="http://my.telmd.com/?#/app/dashboard-v2" <button class="btn m-b-xs btn-lg btn-primary btn-addon"><i class="fa fa-plus"></i>Checkin</button></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- / main header -->
+    <div class="wrapper-md" ng-controller="FlotChartDemoCtrl">
+      <!-- stats -->
+      <div class="row">
+        <div class="col-md-5">
+          <div class="row row-sm text-center">
+            <div class="col-xs-6">
+              <div class="panel padder-v item">
+                <div class="h1 text-info font-thin h1">8</div>
+                <span class="text-muted text-xs">Practitioners</span>
+                <div class="top text-right w-full">
+                  <i class="fa fa-caret-down text-warning m-r-sm"></i>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-6">
+              <a href class="block panel padder-v bg-primary item">
+                <span class="text-white font-thin h1 block">30</span>
+                <span class="text-muted text-xs">Booked Appointments</span>
+                <span class="bottom text-right w-full">
+                  <i class="fa fa-cloud-upload text-muted m-r-sm"></i>
+                </span>
+              </a>
+            </div>
+            <div class="col-xs-6">
+              <a href class="block panel padder-v bg-info item">
+                <span class="text-white font-thin h1 block">37</span>
+                <span class="text-muted text-xs">Reflections</span>
+                <span class="top">
+                  <i class="fa fa-caret-up text-warning m-l-sm m-r-sm"></i>
+                </span>
+              </a>
+            </div>
+            <div class="col-xs-6">
+              <div class="panel padder-v item">
+                <div class="font-thin h1">129</div>
+                <span class="text-muted text-xs">Practitioner Messages</span>
+                <div class="bottom">
+                  <i class="fa fa-caret-up text-warning m-l-sm m-r-sm"></i>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-12 m-b-md">
+              <div class="r bg-light dker item hbox no-border">
+                <div class="col w-xs v-middle hidden-md">
+                  <div ng-init="d3_3=[60,40]" ui-jq="sparkline" ui-options="{{d3_3}}, {type:'pie', height:40, sliceColors:['{{app.color.warning}}','#fff']}" class="sparkline inline"></div>
+                </div>
+                <div class="col dk padder-v r-r">
+                  <div class="text-primary-dk font-thin h1"><span>4.2 AVG Checkin Score</span></div>
+                  <span class="text-muted text-xs">You are at 60% goal completion!</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-7">
+          <div class="panel wrapper">
+            <label class="i-switch bg-warning pull-right" ng-init="showSpline=true">
+              <input type="checkbox" ng-model="showSpline">
+              <i></i>
+            </label>
+            <h4 class="font-thin m-t-none m-b text-muted">Checkin History</h4>
+            <div ui-jq="plot" ui-refresh="showSpline" ui-options="
+              [
+                { data: {{d0_1}}, label:'Mind', points: { show: true, radius: 1}, splines: { show: {{showSpline}}, tension: 0.4, lineWidth: 1, fill: 0.8 } },
+                { data: {{d0_2}}, label:'Goal', points: { show: true, radius: 1}, splines: { show: {{showSpline}}, tension: 0.4, lineWidth: 1, fill: 0.8 } }
+              ], 
+              {
+                colors: ['{{app.color.info}}', '{{app.color.primary}}'],
+                series: { shadowSize: 3 },
+                xaxis:{ font: { color: '#a1a7ac' } },
+                yaxis:{ font: { color: '#a1a7ac' }, max:20 },
+                grid: { hoverable: true, clickable: true, borderWidth: 0, color: '#dce5ec' },
+                tooltip: true,
+                tooltipOpts: { content: 'Visits of %x.1 is %y.4',  defaultTheme: false, shifts: { x: 10, y: -25 } }
+              }
+            " style="height:246px" >
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- / stats -->
+
+      <!-- service -->
+      <div class="panel hbox hbox-auto-xs no-border">
+        <div class="col wrapper">
+          <i class="fa fa-circle-o text-info m-r-sm pull-right"></i>
+          <h4 class="font-thin m-t-none m-b-none text-primary-lt">How Contagious Are You?</h4>
+          <span class="m-b block text-sm text-muted">Analysis of how many friends and family you've helped.</span>
+          <div ui-jq="plot" ui-options="
+            [
+              { data: {{d4}}, lines: { show: true, lineWidth: 1, fill:true, fillColor: { colors: [{opacity: 0.2}, {opacity: 0.8}] } } }
+            ], 
+            {
+              colors: ['{{app.color.light}}'],
+              series: { shadowSize: 3 },
+              xaxis:{ show:false },
+              yaxis:{ font: { color: '#a1a7ac' } },
+              grid: { hoverable: true, clickable: true, borderWidth: 0, color: '#dce5ec' },
+              tooltip: true,
+              tooltipOpts: { content: '%s of %x.1 is %y.4',  defaultTheme: false, shifts: { x: 10, y: -25 } }
+            }
+          " style="height:240px" >
+          </div>
+        </div>
+        <div class="col wrapper-lg w-lg bg-light dk r-r">
+          <h4 class="font-thin m-t-none m-b">You've Helped Get...</h4>
+          <div class="">
+            <div class="">
+              <span class="pull-right text-primary">60</span>
+              <span>Signups</span>
+            </div>
+            <div class="progress progress-xs m-t-sm bg-white">
+              <div class="progress-bar bg-primary" data-toggle="tooltip" data-original-title="60%" style="width: 60%"></div>
+            </div>
+            <div class="">
+              <span class="pull-right text-info">35</span>
+              <span>Booked Appointments</span>
+            </div>
+            <div class="progress progress-xs m-t-sm bg-white">
+              <div class="progress-bar bg-info" data-toggle="tooltip" data-original-title="35%" style="width: 35%"></div>
+            </div>
+            <div class="">
+              <span class="pull-right text-warning">25</span>
+              <span>Online Consultations</span>
+            </div>
+            <div class="progress progress-xs m-t-sm bg-white">
+              <div class="progress-bar bg-warning" data-toggle="tooltip" data-original-title="23%" style="width: 25%"></div>
+            </div>
+          </div>
+          <p class="text-muted">Represents the amount of people you have helped obtain local wellness care.</p>
+        </div>
+      </div>
+      <!-- / service -->
+
+      <!-- tasks -->
+      <div class="panel wrapper">
+        <div class="row">
+          <div class="col-md-6 b-r b-light no-border-xs">
+            <a href class="text-muted pull-right text-lg"><i class="icon-arrow-right"></i></a>
+            <h4 class="font-thin m-t-none m-b-md text-muted">My Wellness Tasks</h4>
+            <div class=" m-b">
+              <div class="m-b">
+                <span class="label text-base bg-warning pos-rlt m-r"><i class="arrow right arrow-warning"></i> 7:30p</span>
+                <a href>Update Journal Entry</a>
+              </div>
+              <div class="m-b">
+                <span class="label text-base bg-info pos-rlt m-r"><i class="arrow right arrow-info"></i> 12:30p</span>
+                <a href>Have lunch at Mad Greens</a>
+              </div>
+              <div class="m-b">
+                <span class="label text-base bg-primary pos-rlt m-r"><i class="arrow right arrow-primary"></i> 10:30a</span>
+                <a href>Write recipe list</a>
+              </div>
+              <div class="m-b">
+                <span class="label text-base bg-light pos-rlt m-r"><i class="arrow right arrow-light"></i> 07:30a</span>
+                <a href>Morning run</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">            
+            <div class="row row-sm">
+              <div class="col-xs-6 text-center">
+                <div ui-jq="easyPieChart" ui-options="{
+                    percent: 75,
+                    lineWidth: 4,
+                    trackColor: '{{app.color.light}}',
+                    barColor: '{{app.color.primary}}',
+                    scaleColor: false,
+                    size: 115,
+                    rotate: 90,
+                    lineCap: 'butt'
+                  }" class="inline m-t">
+                  <div>
+                    <span class="text-primary h4">75%</span>
+                  </div>
+                </div>
+                <div class="text-muted font-bold text-xs m-t m-b">Tasks Done</div>
+              </div>
+              <div class="col-xs-6 text-center">
+                <div ui-jq="easyPieChart" ui-options="{
+                    percent: 50,
+                    lineWidth: 4,
+                    trackColor: '{{app.color.light}}',
+                    barColor: '{{app.color.info}}',
+                    scaleColor: false,
+                    size: 115,
+                    rotate: 180,
+                    lineCap: 'butt'
+                  }" class="inline m-t">
+                  <div>
+                    <span class="text-info h4">50%</span>
+                  </div>
+                </div>
+                <div class="text-muted font-bold text-xs m-t m-b">Mind Goal Completion</div>
+              </div>
+            </div>            
+          </div>
+        </div>
+      </div>
+      <!-- / tasks -->
+
+      <!-- tasks -->
+      <div class="row">
+        <div class="col-md-6">
+          <div class="panel no-border">
+            <div class="panel-heading wrapper b-b b-light">
+              <span class="text-xs text-muted pull-right">
+                <i class="fa fa-circle text-primary m-r-xs"></i> 12
+                <i class="fa fa-circle text-info m-r-xs m-l-sm"></i> 30
+                <i class="fa fa-circle text-warning m-r-xs m-l-sm"></i> 98
+              </span>
+              <h4 class="font-thin m-t-none m-b-none text-muted">Goal-Orented Wellness Team</h4>              
+            </div>
+            <ul class="list-group list-group-lg m-b-none">
+              <li class="list-group-item">
+                <a href class="thumb-sm m-r">
+                  <img src="img/a1.jpg" class="r r-2x">
+                </a>
+                <span class="pull-right label bg-info inline m-t-sm">Fitness Trainer</span>
+                <a href>Damon Parker</a>
+              </li>
+              <li class="list-group-item">
+                <a href class="thumb-sm m-r">
+                  <img src="img/a2.jpg" class="r r-2x">
+                </a>
+                <span class="pull-right label bg-info inline m-t-sm">Nutritionist</span>
+                <a href>Joe Waston</a>
+              </li>
+              <li class="list-group-item">
+                <a href class="thumb-sm m-r">
+                  <img src="img/a3.jpg" class="r r-2x">
+                </a>
+                <span class="pull-right label bg-info inline m-t-sm">Acupuncturist</span>
+                <a href>Jannie Dvis</a>
+              </li>
+              <li class="list-group-item">
+                <a href class="thumb-sm m-r">
+                  <img src="img/a4.jpg" class="r r-2x">
+                </a>
+                <span class="pull-right label bg-info inline m-t-sm">Massage Therapist</span>
+                <a href>Emma Welson</a>
+              </li>
+            </ul>
+            <div class="panel-footer">
+              <span class="pull-right badge badge-bg m-t-xs">32</span>
+              <button class="btn btn-primary btn-addon btn-sm"><i class="fa fa-plus"></i>Add Teammate</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">            
+          <div class="list-group list-group-lg list-group-sp">
+            <a herf class="list-group-item clearfix">
+              <span class="pull-left thumb-sm avatar m-r">
+                <img src="img/a4.jpg" alt="...">
+                <i class="on b-white right"></i>
+              </span>
+              <span class="clear">
+                <span>Chris Fox</span>
+                <small class="text-muted clear text-ellipsis">What's up, buddy</small>
+              </span>
+            </a>
+            <a herf class="list-group-item clearfix">
+              <span class="pull-left thumb-sm avatar m-r">
+                <img src="img/a5.jpg" alt="...">
+                <i class="on b-white right"></i>
+              </span>
+              <span class="clear">
+                <span>Amanda Conlan</span>
+                <small class="text-muted clear text-ellipsis">Come online and we need talk about the plans that we have discussed</small>
+              </span>
+            </a>
+            <a herf class="list-group-item clearfix">
+              <span class="pull-left thumb-sm avatar m-r">
+                <img src="img/a6.jpg" alt="...">
+                <i class="busy b-white right"></i>
+              </span>
+              <span class="clear">
+                <span>Dan Doorack</span>
+                <small class="text-muted clear text-ellipsis">Hey, Some good news</small>
+              </span>
+            </a>
+            <a herf class="list-group-item clearfix">
+              <span class="pull-left thumb-sm avatar m-r">
+                <img src="img/a7.jpg" alt="...">
+                <i class="busy b-white right"></i>
+              </span>
+              <span class="clear">
+                <span>Lauren Taylor</span>
+                <small class="text-muted clear text-ellipsis">Nice to talk with you.</small>
+              </span>
+            </a>
+            <a herf class="list-group-item clearfix">
+              <span class="pull-left thumb-sm avatar m-r">
+                <img src="img/a8.jpg" alt="...">
+                <i class="away b-white right"></i>
+              </span>
+              <span class="clear">
+                <span>Mike Jackson</span>
+                <small class="text-muted clear text-ellipsis">This is nice</small>
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <!-- / tasks -->
+    </div>
+  </div>
+  <!-- / main -->
+  <!-- right col -->
+  <div class="col w-md bg-white-only b-l bg-auto no-border-xs">
+    <div class="nav-tabs-alt" >
+      <ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+          <a data-target="#tab-1" role="tab" data-toggle="tab">
+            <i class="glyphicon glyphicon-user text-md text-muted wrapper-sm"></i>
+          </a>
+        </li>
+        <li>
+          <a data-target="#tab-2" role="tab" data-toggle="tab">
+            <i class="glyphicon glyphicon-comment text-md text-muted wrapper-sm"></i>
+          </a>
+        </li>
+        <li>
+          <a data-target="#tab-3" role="tab" data-toggle="tab">
+            <i class="glyphicon glyphicon-transfer text-md text-muted wrapper-sm"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="tab-content">
+      <div role="tabpanel" class="tab-pane active" id="tab-1">
+        <div class="wrapper-md">
+          <div class="m-b-sm text-md">My Wellness Team</div>
+          <ul class="list-group no-bg no-borders pull-in">
+            <li class="list-group-item">
+              <a herf class="pull-left thumb-sm avatar m-r">
+                <img src="data:image/jpeg;base64,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" alt="..." class="img-circle">
+                <i class="on b-white bottom"></i>
+              </a>
+              <div class="clear">
+                <div><a href>Dr. Chris Fox</a></div>
+                <small class="text-muted">Family Physician</small>
+              </div>
+            </li>
+            <li class="list-group-item">
+              <a herf class="pull-left thumb-sm avatar m-r">
+                <img src="img/a5.jpg" alt="..." class="img-circle">
+                <i class="on b-white bottom"></i>
+              </a>
+              <div class="clear">
+                <div><a href>Mogen Polish</a></div>
+                <small class="text-muted">Nutritionist</small>
+              </div>
+            </li>
+            <li class="list-group-item">
+              <a herf class="pull-left thumb-sm avatar m-r">
+                <img src="img/a6.jpg" alt="..." class="img-circle">
+                <i class="busy b-white bottom"></i>
+              </a>
+              <div class="clear">
+                <div><a href>Joge Lucky</a></div>
+                <small class="text-muted">Ayurvedic Practitioner</small>
+              </div>
+            </li>
+            <li class="list-group-item">
+              <a herf class="pull-left thumb-sm avatar m-r">
+                <img src="img/a7.jpg" alt="..." class="img-circle">
+                <i class="away b-white bottom"></i>
+              </a>
+              <div class="clear">
+                <div><a href>Folisise Chosielie</a></div>
+                <small class="text-muted">Qigong Instructor</small>
+              </div>
+            </li>
+            <li class="list-group-item">
+              <a herf class="pull-left thumb-sm avatar m-r">
+                <img src="img/a8.jpg" alt="..." class="img-circle">
+                <i class="away b-white bottom"></i>
+              </a>
+              <div class="clear">
+                <div><a href>Aron Gonzalez</a></div>
+                <small class="text-muted">Sleep Medicine MD</small>
+              </div>
+            </li>
+          </ul>
+          <div class="text-center">
+            <a href ="http://my.telmd.com/?#/apps/contact" class="btn btn-addon btn-primary padder-md m-b">Add More Practitioners</a>
+          </div>
+        </div>
+      </div>
+      <div role="tabpanel" class="tab-pane tab-2" id="tab-2">
+        <div class="wrapper-md">
+          <div class="m-b-sm text-md">Chat</div>
+          <ul class="list-group no-borders pull-in auto">
+            <li class="list-group-item">
+              <span class="pull-left thumb-sm m-r"><img src="data:image/jpeg;base64,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" alt="..." class="img-circle"></span>
+              <a href="#" class="text-muted" ui-toggle-class="show" target=".app-aside-right"><i class="fa fa-comment-o pull-right m-t-sm text-sm"></i></a>
+              <div class="clear">
+                <div><a href="">Dr. Chris Fox</a></div>
+                <small class="text-muted">about 2 minutes ago</small>
+              </div>
+            </li>
+            <li class="list-group-item">
+              <span class="pull-left thumb-sm m-r"><img src="img/a2.jpg" alt="..." class="img-circle"></span>
+              <a href="#" class="text-muted" ui-toggle-class="show" target=".app-aside-right"><i class="fa fa-comment-o pull-right m-t-sm text-sm"></i></a>
+              <div class="clear">
+                <div><a href="">Amanda Conlan</a></div>
+                <small class="text-muted">about 2 hours ago</small>
+              </div>
+            </li>
+            <li class="list-group-item">
+              <span class="pull-left thumb-sm m-r"><img src="img/a3.jpg" alt="..." class="img-circle"></span>
+              <a href class="text-muted" ui-toggle-class="show" target=".app-aside-right"><i class="fa fa-comment-o pull-right m-t-sm text-sm"></i></a>
+              <div class="clear">
+                <div><a href="">Dan Doorack</a></div>
+                <small class="text-muted">3 days ago</small>
+              </div>
+            </li>
+            <li class="list-group-item">
+              <span class="pull-left thumb-sm m-r"><img src="img/a4.jpg" alt="..." class="img-circle"></span>
+              <a href class="text-muted" ui-toggle-class="show" target=".app-aside-right"><i class="fa fa-comment-o pull-right m-t-sm text-sm"></i></a>
+              <div class="clear">
+                <div><a href="">Lauren Taylor</a></div>
+                <small class="text-muted">about 2 minutes ago</small>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div role="tabpanel" class="tab-pane tab-3" id="tab-3">
+        <div class="wrapper-md">
+          <div class="m-b-sm text-md">Consultations</div>
+          <ul class="list-group list-group-sm list-group-sp list-group-alt auto m-t">
+            <li class="list-group-item">
+              <span class="text-muted">Lauren Taylor</span>
+              <span class="block text-md text-info">5:30p PST Monday, May 22</span>
+            </li>
+            <li class="list-group-item">
+              <span class="text-muted">Dan Doorack</span>
+              <span class="block text-md text-primary">3:30p PST Sunday, May 21</span>
+            </li>
+            <li class="list-group-item">
+              <span class="text-muted">Dr. Spencer</span>
+              <span class="block text-md text-warning">1:30p PST Monday, May 22</span>
+            </li>
+            <li class="list-group-item">
+              <span class="text-muted">Phil Heart</span>
+              <span class="block text-md">12:30p PST Monday, May 22</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="padder-md">      
+      <!-- streamline -->
+      <div class="m-b text-md">Recent Activity</div>
+      <div class="streamline b-l m-b">
+        <div class="sl-item">
+          <div class="m-l">
+            <div class="text-muted">5 minutes ago</div>
+            <p><a href class="text-info">Jessi</a> commented your post.</p>
+          </div>
+        </div>
+        <div class="sl-item">
+          <div class="m-l">
+            <div class="text-muted">11:30</div>
+            <p>Join comference</p>
+          </div>
+        </div>
+        <div class="sl-item b-success b-l">
+          <div class="m-l">
+            <div class="text-muted">10:30</div>
+            <p>Call to customer <a href class="text-info">Jacob</a> and discuss the detail.</p>
+          </div>
+        </div>
+        <div class="bg-info wrapper-sm m-l-n m-r-n m-b r r-2x">
+          Create tasks for the team
+        </div>
+        <div class="sl-item b-primary b-l">
+          <div class="m-l">
+            <div class="text-muted">Wed, 25 Mar</div>
+            <p>Finished task <a href class="text-info">Testing</a>.</p>
+          </div>
+        </div>
+        <div class="sl-item b-warning b-l">
+          <div class="m-l">
+            <div class="text-muted">Thu, 10 Mar</div>
+            <p>Trip to the moon</p>
+          </div>
+        </div>
+        <div class="sl-item b-info b-l">
+          <div class="m-l">
+            <div class="text-muted">Sat, 5 Mar</div>
+            <p>Prepare for presentation</p>
+          </div>
+        </div>
+        <div class="sl-item b-l">
+          <div class="m-l">
+            <div class="text-muted">Sun, 11 Feb</div>
+            <p><a href class="text-info">Jessi</a> assign you a task <a href class="text-info">Mockup Design</a>.</p>
+          </div>
+        </div>
+        <div class="sl-item b-l">
+          <div class="m-l">
+            <div class="text-muted">Thu, 17 Jan</div>
+            <p>Follow up to close deal</p>
+          </div>
+        </div>
+      </div>
+      <!-- / streamline -->
+    </div>
+    <div data-ng-include=" 'tpl/blocks/aside.right.html' ">
+      {% include '../tpl/blocks/aside.right.html' %}
+    </div>
+  </div>
+  <!-- / right col -->
+</div>
